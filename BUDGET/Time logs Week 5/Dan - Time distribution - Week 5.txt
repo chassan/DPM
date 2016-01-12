@@ -1,0 +1,10 @@
+- 1h interbrick communication
+- 6h coding and testing of localization, beaconSearch, grab & navigation class
+- 1h navigation via bluetooth class + testing 
+- 1h improve stability on design
+- 1h update Gantt chart for week 5
+- 1h preparation of team meeting and ideas for avoidObstacle class
+- 1h PPT presentation 
+- 1h meeting 
+
+Total: 13h

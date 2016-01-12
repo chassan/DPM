@@ -1,0 +1,7 @@
+Meeting (2 Hour)
+LDD (3 hours)
+Making changes to the new arm (2.5 Hours)
+Design the support of the arm (1.5 hours)
+Stabilizing the support (2hours)
+
+Total: 11 hours

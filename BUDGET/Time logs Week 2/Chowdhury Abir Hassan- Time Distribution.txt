@@ -1,0 +1,4 @@
+Team Meeting- 1 hours
+Building the robotic arm- 2hours
+Building the wheel system of the robot : 2.5 hours
+Made changes with the initial wheel system design - 1 hour

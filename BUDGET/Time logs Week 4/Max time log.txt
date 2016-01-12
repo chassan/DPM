@@ -1,0 +1,7 @@
+2012-11-08	Design of a stronger arm, test, design of centered US and light sensors, test	4.0H
+2012-11-12	Meeting 1.5H
+2012-11-12	Work on interbrick protocol 1.5H
+2012-11-13	Work on interbrick protocol + coding lightLocalizer 3.5H
+2012-11-13	Meeting 1H
+
+Total 11.5H

@@ -1,0 +1,128 @@
+import java.io.IOException;
+import lejos.nxt.*;
+import lejos.nxt.comm.Bluetooth;
+import lejos.nxt.comm.NXTCommConnector;
+import lejos.nxt.remote.RemoteMotor;
+import lejos.nxt.remote.RemoteMotorPort;
+import lejos.nxt.remote.RemoteNXT;
+import lejos.util.Delay;
+
+public class Main {
+
+	private static boolean grabbedBeacon = false;
+	private static final int ARM_LENGTH = 22;
+	private static double[] position;
+	
+	public static void main(String[] args)
+	{	
+		//initiate local motors and sensors
+		NXTRegulatedMotor leftWheel = new NXTRegulatedMotor(MotorPort.A);
+		NXTRegulatedMotor rightWheel = new NXTRegulatedMotor(MotorPort.B);
+		NXTRegulatedMotor puller = new NXTRegulatedMotor(MotorPort.C);
+		
+		final LightSensor searchLightSensor = new LightSensor(SensorPort.S2);
+		final LightSensor localizationLightSensor = new LightSensor(SensorPort.S1);
+		final UltrasonicSensor forwardUSSensor = new UltrasonicSensor(SensorPort.S3);
+		
+		TwoWheeledRobot robot = new TwoWheeledRobot(leftWheel, rightWheel);
+		final Odometer odometer = new Odometer(robot, true, leftWheel, rightWheel);
+		final Navigation nav = odometer.getNavigation();
+		
+//		BT.getDestination(nav);
+		//Wait for signal from bluetooth
+		//Create remoteNXT object
+		
+		LCDInfo lcd = new LCDInfo(odometer);	
+		
+		try
+		{	
+			LCD.drawString("Connecting...", 0, 0);
+			NXTCommConnector connector = Bluetooth.getConnector();
+			RemoteNXT nxt = new RemoteNXT("SEagle", connector);
+			LCD.clear();
+			RemoteMotor leftArm = nxt.A;
+			RemoteMotor rightArm = nxt.B;
+			RemoteMotor claw = nxt.C;
+			final LightSensor secondSearchLightSensor = new LightSensor(nxt.S2);
+			final UltrasonicSensor rightUSSensor = new UltrasonicSensor(nxt.S1);
+			final UltrasonicSensor leftUSSensor = new UltrasonicSensor(nxt.S4);
+			
+//			Button.waitForAnyPress();
+			
+//			leftWheel.setAcceleration(3000);
+//			rightWheel.setAcceleration(3000);
+			
+//			nav.travelToDestination(leftUSSensor, rightUSSensor);
+			
+			ArmMovement arm = new ArmMovement(leftArm, rightArm, claw, puller, nav);
+			nav.setArm(arm);
+//			Button.waitForAnyPress();
+//			
+//			
+//			nav.travelTo(0,30.48*3,leftUSSensor,rightUSSensor);
+//			
+			//Do ultrasonic and light localization
+//			Button.waitForAnyPress();
+//			USLocalizer usl = new USLocalizer(odometer,forwardUSSensor);
+//			usl.doLocalization();
+//			
+//			LightLocalizer lsl = new LightLocalizer(odometer,localizationLightSensor);
+//			lsl.doLocalization();
+			
+//			forwardUSSensor = new UltrasonicSensor(SensorPort.S3);
+//			searchLightSensor = new LightSensor(SensorPort.S2);
+			
+//			while(true)
+//			{
+//				LCD.drawString("" + searchLightSensor.readValue(), 0, 0);
+//				Delay.msDelay(200);
+//				LCD.clear();
+//			}
+			
+			
+			//Search for light source
+//			searchLightSensor.setFloodlight(false);
+			LightSearch search = new LightSearch(odometer,searchLightSensor, forwardUSSensor, leftWheel, rightWheel, arm);
+			search.getToSource();
+
+//			arm.grab();
+			
+//			leftWheel.backward();
+//			rightWheel.backward();
+//			Delay.msDelay(1000);
+//			leftWheel.stop(true);
+//			rightWheel.stop(false);
+//			grabbedBeacon=true;
+//			
+//			nav.travelTo(0,0);
+//			
+//			lcd=null;
+//			
+//			LCD.drawString("" + nav.xCoordCorner,0,0);
+//			LCD.drawString("" + nav.yCoordCorner,0,1);
+			
+//			//travel to corner or starting corner
+//			nav.travelTo(nav.xCoordCorner,nav.yCoordCorner,leftUSSensor,rightUSSensor);
+//			Sound.playNote(Sound.PIANO, 400, 1000);
+//			nav.travelTo(0,0,leftUSSensor,rightUSSensor);
+//			
+//			//nav.travelTo(0,0);		
+//
+		} catch (IOException e)	{
+			LCD.clear();
+			LCD.drawString("Conn failed", 0, 0);
+		}
+			
+			
+			
+			
+//		nav.turnTo(360);
+//		try {
+//			Thread.sleep(10000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
+	}
+}

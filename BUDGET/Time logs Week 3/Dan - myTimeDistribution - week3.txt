@@ -1,0 +1,8 @@
+What has been done this week on the manager side:
+	- Final presentation of the week PPT : 1H
+	- Initial robot design: 1H
+	- Meetings: 2H
+	- Meetings preparation: 2H
+	- Actualize Gantt: 1H
+	- Read all new documents: 1H
+	- Ideas about strategy and testing: 1H

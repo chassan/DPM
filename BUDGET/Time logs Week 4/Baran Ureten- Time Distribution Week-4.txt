@@ -1,0 +1,11 @@
+Making adjustments on the new arm (2 hrs)
+
+Design of a support for the arm (2 hrs)
+
+Stabilizing the support and the arm after testing (2 hours)
+
+Meeting (3 hrs)
+
+LDD (3 hrs)
+
+Total 12 hrs

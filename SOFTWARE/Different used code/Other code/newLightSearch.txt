@@ -1,0 +1,186 @@
+import lejos.nxt.LCD;
+import lejos.nxt.LightSensor;
+import lejos.nxt.NXTRegulatedMotor;
+import lejos.nxt.Sound;
+import lejos.nxt.UltrasonicSensor;
+import lejos.util.Delay;
+
+
+public class LightSearch {
+  private Odometer odo;
+  private TwoWheeledRobot robot;
+  private LightSensor ls;
+  private UltrasonicSensor us;
+  private Navigation nav;
+
+  private NXTRegulatedMotor leftWheel;
+  private NXTRegulatedMotor rightWheel;
+  private ArmMovement arm;
+  
+  public static double FORWARD_SPEED = 10;
+  public static double ROTATION_SPEED = 5;
+  final int DISTANCE_FROM_BLOCK = 30;
+  public boolean closeEnough = false;
+  public boolean getCloser = false;
+  double [] myPos = new double [3];
+  int currentLight;
+  
+  
+  public LightSearch(Odometer odo, LightSensor ls, UltrasonicSensor us, NXTRegulatedMotor leftWheel, NXTRegulatedMotor rightWheel, ArmMovement arm){
+	  	this.odo = odo;
+	    this.robot = odo.getTwoWheeledRobot();
+	    this.ls = ls;
+	    this.us = us;
+	    this.nav = odo.getNavigation();
+	    this.leftWheel = leftWheel;
+	    this.rightWheel = rightWheel;
+	    this.arm = arm;
+	   //	ls.setFloodlight(false);
+  }
+  
+  
+  //find the source orientation, and go 50 cm in that direction,
+  //then check again for the orientation, until it is close enough
+  
+  public void getToSource() {
+	  
+	  while(!closeEnough){
+	  getCloser(40);
+	  }
+	  
+	  Sound.beep();
+	  try {
+		Thread.sleep(2000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	  
+//	  robot.setForwardSpeed(FORWARD_SPEED);
+//	  nav.travelTo(DISTANCE_FROM_BLOCK-5);
+	  
+  }
+  
+  
+  
+  public void getCloser(int distance){
+	  
+	  //Get the brightest orientation and turn in that direction
+	  double orientation = getBright();
+	  robot.setRotationSpeed(ROTATION_SPEED);
+	  nav.turnTo(nav.findAngle(orientation));
+	  robot.setForwardSpeed(FORWARD_SPEED);
+	  nav.travelTo(distance, true); 
+	  
+	  while(us.getDistance()>=DISTANCE_FROM_BLOCK){
+		  if(leftWheel.getRotationSpeed() == 0 && rightWheel.getRotationSpeed() == 0){
+			  Sound.twoBeeps();
+			  break;
+		  }  
+		  Delay.msDelay(1000);
+	  }
+	  
+	  
+	  if(us.getDistance()<DISTANCE_FROM_BLOCK){
+		  closeEnough = true;
+		  robot.stop();
+		  nav.travelTo(-10);
+		  arm.grab();
+	  }
+	  
+	  //Use the ultrasonic sensor to check if the source is close enough (20cm).
+	  //If it is, it adjusts the distance.
+	 /* if(usLecture<(3/2)*distance && !getCloser){
+		  distance = distance/2;
+	  }
+	  
+	  if(usLecture<DISTANCE_FROM_BLOCK){
+		 closeEnough = true;
+	  }else{
+		  if(usLecture<distance){
+			  distance = usLecture-DISTANCE_FROM_BLOCK;
+			  closeEnough = true;
+		  }
+	  
+	  //Go the distance
+	  robot.setForwardSpeed(FORWARD_SPEED);
+	  nav.travelTo(distance);
+	  }*/
+  }
+  
+  
+  public double getBright(){
+	  int filterFirstValues = 0;
+	  double [] initPos = new double [3];
+	  double [] pos = new double [3];
+	  odo.getPosition(pos);
+	  odo.getPosition(initPos);
+	  double brightestValue = 0;
+	  double lowestValue = 100;
+	  double brightestAngle = pos[2];
+	  double actualValue;
+	  robot.setRotationSpeed(30);
+	  while(true){
+		  odo.getPosition(pos);
+		  if (Math.abs(pos[2]-initPos[2])<1 && filterFirstValues>1000){
+			  Sound.buzz();
+			  break;
+		  }else{
+			  filterFirstValues++;
+			  if(filterFirstValues%5 == 2){
+				  actualValue = ls.readValue();
+				  if(actualValue>brightestValue){
+					  brightestValue = actualValue;
+					  brightestAngle = pos[2];
+				  }
+				  if(actualValue<lowestValue){
+					  lowestValue = actualValue;
+				  }
+			  }
+		  }
+			  
+	  }
+	  
+	  
+	  
+	  robot.stop();
+	  
+	  return brightestAngle;
+  }
+  
+  
+//  public double getBrightestOrientation(){
+//	  
+//	  //get the actual orientation, store it in myPos and set it to be the brightest orientation
+//	  double [] myPos = new double [3];
+//	  odo.getPosition(myPos);
+//	  double brightestOrientation = myPos[2];
+//	  int brightestLight = ls.readValue();	
+//	  
+//	  //sets the counter for the while loop to 0 (number of degrees turned)
+//	  int degrees = 0;
+//	  
+//	  //turn 360 degrees (5 by 5) and scan to find the brightest light and orientation
+//	  //Note that we could have done it 1 by 1 or even .5 by .5, but we did it to maximize
+//	  //the speed
+//	  while(degrees<360){
+//		  degrees = degrees + 3;
+//		  int lightAcquired = ls.readValue();
+//		  
+//		  //if the light acquired is brighter than the past brightest, change it
+//		  if (lightAcquired>brightestLight){
+//			  brightestLight = lightAcquired;
+//			  odo.getPosition(myPos);
+//			  brightestOrientation = myPos[2];
+//			 
+//			  
+//		  }
+//		  
+//	  }
+//	  
+//	  return brightestOrientation;
+//	  
+//	  
+//  }  
+}
+

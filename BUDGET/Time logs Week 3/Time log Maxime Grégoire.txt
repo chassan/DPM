@@ -1,0 +1,6 @@
+2012-11-05 : 12h30 to 14h00 : Meeting = 1.5H
+2012-11-05 : 16h00 to 17h30 : Test file = 1.5H
+2012-11-05 : 17h30 to 18h00 : Flow chart = 0.5H
+2012-11-05 : 12h30 to 13h30 : Meeting = 1.0H
+2012-11-05 : 15h30 to 19h00 : coding (assembling the code with the odometer)= 3.5H
+	     

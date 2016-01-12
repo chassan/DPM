@@ -1,0 +1,7 @@
+- Balancing the design (2 hours)
+- Making the wheel base stronger (3 hours)
+- Meetings (2 hours)
+- Changes on LDD (2 hours)
+
+
+Total 9 hours

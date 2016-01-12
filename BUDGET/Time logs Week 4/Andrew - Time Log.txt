@@ -1,0 +1,7 @@
+3h30 - Rebuiding and coding to test abilities of new arm (Thursday)
+3h15 - Additions to robot arm and further tested the abilities of the arm (Friday)
+3h00 - Work on robot design and some research into bluetooth for inter-brick communication
+2h00 - Research and development of prototype bluetooth classes for inter-brick communication
+
+
+11h45 - Total

@@ -1,0 +1,6 @@
+11-13-2012 : 5H, coding plus testing USLocalizer and LightLocalizer
+11-14-2012 : 4H, coding plus testing LightFinder
+11-15-2012 : 5H, integration testing and coding
+11-19-2012 : 1H, meeting
+
+15H total

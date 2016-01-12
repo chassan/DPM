@@ -1,0 +1,7 @@
+1h - Checkings/To dos for last week
+1h - Algorithm ideas for attacker/defender/obstacle avoidance
+3h - Poster
+4h - Coding
+2h - Double check documentation
+
+Total: 11h

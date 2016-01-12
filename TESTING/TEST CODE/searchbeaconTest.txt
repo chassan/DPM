@@ -1,0 +1,28 @@
+  public double getBright(){
+	  boolean isDoneRotating = false;
+	  int filterFirstValues = 0;
+	  double [] initPos = new double [3];
+	  double [] pos = new double [3];
+	  odo.getPosition(pos);
+	  double brightestValue = ls.readValue();
+	  double brightestAngle = pos[3];
+	  
+	  robot.setRotationSpeed(30);
+	  while(true){
+		  odo.getPosition(pos);
+		  if (pos[2]-initPos[2]<1 && filterFirstValues>50){
+			  break;
+		  }else{
+			  filterFirstValues++;
+			  double actualValue = ls.readValue();
+			  if(actualValue>brightestValue){
+				  brightestValue = actualValue;
+				  brightestAngle = pos[2];
+			  }
+		  }
+			  
+	  }
+	  robot.setRotationSpeed(0);
+	  
+	  return brightestAngle;
+  }

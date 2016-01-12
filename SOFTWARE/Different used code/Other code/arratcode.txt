@@ -1,0 +1,9 @@
+  public int GetnextX(int actualCorner){
+	  int[] XArray = {0,1,1,0};
+	  return XArray[(actualCorner)%4];
+  }
+  
+  public int GetnextY(int actualCorner){
+	  int[] YArray = {0,1,0,1};
+	  return YArray[(actualCorner)%4];
+  }

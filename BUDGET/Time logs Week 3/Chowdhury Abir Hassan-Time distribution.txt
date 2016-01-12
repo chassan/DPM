@@ -1,0 +1,5 @@
+-Team meeting - 1.5hours
+-attached the robotic arm - 2hours
+-balancing the entire model - 2hours
+-had to make some correction to the design as we did not keep enough space for the ports initially- 1 hour
+-discussed and documented the physical and the dynamic errors and how the final dessign works-30mins

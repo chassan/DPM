@@ -1,0 +1,6 @@
+Documentation on the Budget Review,Mechanical Design Proposal,Brick Design 
+and Inter-Brick Communications Protocol (0300hrs)
+
+2 Meetings(0200hrs) Documented each meeting
+
+Documented possible environmental/physical limitations of robot (0100hrs)
